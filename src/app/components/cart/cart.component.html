@@ -1,1 +1,80 @@
-<p>cart works!</p>
+
+<div class="cart-container" 
+    *ngIf="listProductCart && listProductCart.length; else emptyCart">
+    <div class="cart-item">
+      <div *ngFor="let productItem of listProductCart">
+          <app-cart-product 
+            (onChangeItem)="handleChangeProduct($event)" 
+            [product]="productItem" 
+            (onRemoveItem)="handleRemoveProduct($event)"
+          >
+          </app-cart-product>
+      </div>
+      <p class="cart-total">Total Cost: ${{ totalPrice }}</p>
+    </div>
+    <div class="cart-form">
+      <form novalidate class="form-cart" #formInfo="ngForm" (submit)="handleSubmit(formInfo.value)">
+        <div class="form-item">
+          <label for="full-name">Full name</label>
+          <input [ngClass]="{'warning': fullName.invalid && fullName.dirty}" 
+            [(ngModel)]="informationUserOrder.fullName" 
+            placeholder="Minimun is 5 characters" 
+            [minlength]="5" 
+            required 
+            class="form-control" 
+            type="text" 
+            #fullName="ngModel" 
+            name="fullName" 
+            id="full-name">
+          <div *ngIf="fullName.invalid && (fullName.dirty || fullName.touched)" class="cart-error">
+            <div *ngIf="fullName.errors?.['required']">
+              Full Name is required.
+            </div>
+            <div *ngIf="fullName.errors?.['minlength']">
+              Full Name must be at least 5 characters long.
+            </div>
+          </div>
+        </div>
+        <div class="form-item">
+          <label for="adress">Address</label>
+          <input [ngClass]="{'warning': address.invalid && address.dirty}" [(ngModel)]="informationUserOrder.address" required placeholder="Minimun is 6 characters"
+          minlength="6" id="adress" class="form-control" type="text" #address="ngModel" name="address">
+          <div *ngIf="address.invalid && (address.dirty || address.touched)" class="alert-danger ">
+            <div *ngIf="address.errors?.['required']">
+              Adress is required.
+            </div>
+            <div *ngIf="address.errors?.['minlength']">
+              Adress must be at least 6 characters long.
+            </div>
+          </div>
+        </div>
+        <div class="form-item">
+          <label for="credit-card">Credit card</label>
+          <input pattern="[0-9]*" [ngClass]="{'warning': creditCard.invalid && creditCard.dirty}" [(ngModel)]="informationUserOrder.creditCard" required placeholder="Minimun is 16 characters" minlength="16" id="credit-card" class="form-control" type="text" #creditCard="ngModel" name="creditCard">
+          <div *ngIf="creditCard.invalid && (creditCard.dirty || creditCard.touched)" class="alert-danger ">
+            <div *ngIf="creditCard.errors?.['required']">
+              Credit card is required.
+            </div>
+            <div *ngIf="creditCard.errors?.['pattern']">
+              Credit card must be numberic.
+            </div>
+            <div *ngIf="creditCard.errors?.['minlength']">
+              Credit card must be at least 16 characters long.
+            </div>
+          </div>
+        </div>
+        <p>We will never share you payment details with anyone else</p>
+        <div class="cart-submit">
+          <button [disabled]="formInfo.invalid || totalPrice === 0" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  
+  </div>
+  
+  <ng-template #emptyCart>
+    <div>
+      <h2 class="cart-empty">No item in your cart</h2>
+    </div>
+  </ng-template>
+

@@ -1,12 +1,22 @@
 .product-index {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    max-width: 1024px;
+    justify-content: center;
+    // max-width: 1024px;
     margin-bottom: 64px;
+
+    .product-photo {
+      width: 400px;
+      height: 500px;
+      margin-right: 50px;
+    }
   }
   
-  .product-container {
-    display: flex;
-    justify-content: center;
-  }
+  // .product-container {
+  //   display: flex;
+  //   justify-content: center;
+  // }
+
+  
+  
+  

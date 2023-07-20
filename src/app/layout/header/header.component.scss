@@ -1,0 +1,47 @@
+.app-header {
+    text-align: center;
+    padding: 30px;
+    background-color: #007bff;
+    .menu-list{
+        display: flex;
+        justify-content: center;
+        .menu-item {
+            margin-right: 30px;
+        }
+    }
+    
+}
+
+// .app-header {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     background-color: #007bff;
+//     padding: 10px;
+//     color: #fff;
+  
+//     /* Heading */
+//     h2 {
+//       font-size: 24px;
+//       font-weight: bold;
+//       margin: 0;
+//     }
+  
+//     /* Menu List */
+//     .menu-list {
+//       display: flex;
+//       align-items: center;
+  
+//       /* Menu Item */
+//       .menu-item {
+//         color: #fff;
+//         text-decoration: none;
+//         padding: 5px 10px;
+//         border-radius: 5px;
+  
+//         &:hover {
+//           background-color: #0056b3;
+//         }
+//       }
+//     }
+//   }

@@ -1,1 +1,10 @@
-<p>confirmation works!</p>
+<div class="confirmation-container">
+    <div class="confirmation-items">
+      <h3 class="confirmation-header">Order successfully!</h3>
+      <h5>Thank you, {{fullName}}</h5>
+      <h5 class="confirmation-item">Your ${{totalPrice}} order is confirmed.</h5>
+      <button (click)="backtoProductPage()">
+        Back Continue shopping
+      </button>
+    </div>
+  </div>
