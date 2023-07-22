@@ -7,7 +7,12 @@
         <h2 class="text-center">{{ product.name }}</h2>
         <p class="text-center">{{ product.price }}</p>
         <div class="text-center">
-            Amount: <input required min="1" type="number" [(ngModel)]="product.quantity" class="amount-input" (ngModelChange)="onChangeQuantity(product)">
+            Amount: <input 
+              (ngModelChange)="onChangeQuantity(product)"
+              required min="1" 
+              type="number" 
+              [(ngModel)]="product.quantity" 
+              class="amount-input" >
         </div>
         <div>
           <button class="remove-item-cart" type="button" (click)="removeItemCart(product)">Delete</button>

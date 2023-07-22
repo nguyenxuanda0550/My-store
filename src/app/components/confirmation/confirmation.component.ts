@@ -19,7 +19,7 @@ export class ConfirmationComponent {
     })
 
   }
-  backtoProductPage() {
+  backToProductPage() {
     this.router.navigate([''])
   }
 

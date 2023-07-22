@@ -14,7 +14,6 @@ export class ProductItemComponent implements OnInit{
 
   quantity: number = 1;
   CartList: Product[] = [];
-  productId!: any
 
   constructor(private router: Router, private productsService: ProductsService) {}
 
@@ -24,21 +23,14 @@ export class ProductItemComponent implements OnInit{
     })
   }
 
-  navigateToProductDetail(productId: string) {
-    this.router.navigateByUrl('/product-detail/' + productId);
-  }
-
   addToCart(ProductItem: any, quantity: number) {
   let productAddToCart = {...ProductItem, quantity: quantity}
-    this.productsService.checkItemExist(this.CartList, productAddToCart)
+    this.productsService.checkExist(this.CartList, productAddToCart)
     this.productsService.cartSubject$.next(this.CartList)
     alert('Added to cart!');
   }
 
-  // OnGetProductById(id: string) {
-  //   this.productsService.getProductById(id).subscribe(data =>{
-  //     this.productId = data
-  //     console.log("product", this.productId)
-  //   })
-  // }
+  navigateToProductDetail(productId: number) {
+    this.router.navigateByUrl('/product-detail/' + productId);
+  }
 }

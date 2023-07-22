@@ -1,5 +1,6 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+
 import { ActivatedRoute } from '@angular/router';
-import { Component } from '@angular/core';
 // import { MessageService } from 'primeng/api';
 import { Product } from './../../models/product.model';
 import { ProductsService } from './../../Service/products.service';
@@ -10,26 +11,28 @@ import { Subscription } from 'rxjs';
   templateUrl: './product-item-detail.component.html',
   styleUrls: ['./product-item-detail.component.scss']
 })
-export class ProductItemDetailComponent {
+export class ProductItemDetailComponent implements OnInit, OnDestroy{
 
   product: Product[] = []
   cart: Product[] = []
   item: Product = {}
-  quantity: any;
+  quantity: number = 1;
   id: any;
 
   subscriptions: Subscription[] = []
 
-  constructor(private routeActive: ActivatedRoute,
+  constructor(private route: ActivatedRoute,
     private productService: ProductsService){ }
 
   ngOnInit() {
-    this.id = this.routeActive.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('id');
     this.subscriptions.push(
       this.productService.getAllProduct().subscribe((productList: Product[]) => {
         this.product = productList;
+        // console.log("this.product", this.product)
         this.product.forEach((item: Product) => {
-          if (item.id === this.id) {
+          // console.log("id",typeof(this.id) + "item", typeof(item.id))
+          if (item.id === Number(this.id)) {
             this.item = item;
             return;
           }
@@ -41,18 +44,13 @@ export class ProductItemDetailComponent {
         this.cart = cart;
       })
     );
-    // console.log("item",this.item)
-    // console.log("product",this.product)
   }
 
   addToCart(item: any, quantity: number) {
     let addItemToCart = {...item, quantity: quantity}
-    this.productService.checkItemExist(this.cart, addItemToCart)
+    this.productService.checkExist(this.cart, addItemToCart)
     this.productService.cartSubject$.next(this.cart)
     alert('Added to cart');
-  }
-
-  ngAfterViewInit(): void {
   }
 
   ngOnDestroy() {

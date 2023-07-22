@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Product } from '../models/product.model';
 
 @Injectable({
@@ -15,15 +15,13 @@ export class ProductsService {
   constructor(private http: HttpClient) {}
 
   getAllProduct(): Observable<[]> {
-    return this.http.get<[]>('./assets/data.json');
+    return this.http.get<[]>('./assets/data.json').pipe(map((data: any) =>{
+        return data || [];
+      })
+    );
   }
 
-
-  // getProductById(Id: string): Observable<any>{
-  //   return this.http.get<any>()
-  // }
-
-  checkItemExist(cart: Product[], item: Product) {
+  checkExist(cart: Product[], item: Product) {
     let index = cart.findIndex((itemCard) => itemCard.id === item.id);
     if (index !== -1) {
       cart[index].quantity = item.quantity;

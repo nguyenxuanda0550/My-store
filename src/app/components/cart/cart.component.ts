@@ -15,7 +15,7 @@ export class CartComponent implements OnInit{
   
   constructor(private productsService: ProductsService, private router: Router) { }
   
-  totalPrice:number = 0;
+  totalPrice: number = 0;
   listProductCart: Product[] = []
   informationUserOrder = {
     fullName:  '',
@@ -26,19 +26,7 @@ export class CartComponent implements OnInit{
   ngOnInit(): void {
       this.getListProductCart()
   }
-   // Add Product to cart
-   addToCart(product: Product) {
-    this.listProductCart.push(product);
-  }
-
-  // Remove Product from cart
-  removeFromCart(product: Product) {
-    const index = this.listProductCart.indexOf(product);
-    if (index !== -1) {
-      this.listProductCart.splice(index, 1);
-    }
-  }
-
+  
   // Get all cart Products
   getListProductCart() {
     this.productsService.cartSubject$.subscribe((cart) => {
